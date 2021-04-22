@@ -1,5 +1,8 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 require('dotenv').config()
 
 // import routes
@@ -19,7 +22,10 @@ mongoose.connect(process.env.DATABASE, {
   console.log("Not Connected to Database ERROR! ", err);
 });
 
-
+// middleware
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 // routes middleware
 app.use('/api', userRoutes);
