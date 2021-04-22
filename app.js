@@ -2,12 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config()
 
+// import routes
+const userRoutes = require('./routes/user');
+
 // app
 const app = express();
 
 // db
 // To start mongodb - linux - sudo systemctl start mongod
-
 mongoose.connect(process.env.DATABASE, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -19,10 +21,8 @@ mongoose.connect(process.env.DATABASE, {
 
 
 
-// routes
-app.get('/', (req, res) => {
-  res.send("helloworld - node");
-});
+// routes middleware
+app.use('/api', userRoutes);
 
 
 const port  = process.env.PORT || 8000
