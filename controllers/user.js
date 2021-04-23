@@ -58,3 +58,10 @@ exports.signin = ( (req, res) => {
   }); 
 
 });
+
+
+exports.signout =( (req, res) => {
+  // for signout all we have to do is clear cookie
+  res.clearCookie('t');
+  res.json({message: "Signed out user"});
+});
