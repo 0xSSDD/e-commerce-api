@@ -35,12 +35,11 @@ exports.signin = ( (req, res) => {
   User.findOne({ email }, (err, user) => { 
     if(err || !user){
       return res.status(400).json({
-        error: "User with that Email does not exist, please signup  q" 
+        error: "User with that Email does not exist, please signup" 
       });
     }
 
     // if user is found make sure the email and password match
-    // create a authenticate method in user model
     if (!user.authenticate(password)) {
       return res.status(401).json({
           error: "Email and password dont match"
@@ -68,7 +67,6 @@ exports.signout =( (req, res) => {
 });
 
 exports.signup = ( (req, res) => {
-  console.log('req body', req.body);
   const user = new User(req.body);
 
   user.save( (err, user)=> {
@@ -78,7 +76,7 @@ exports.signup = ( (req, res) => {
       });
     }
 
-    // since we dont need to show this
+    // since we dont need to show these two params - ugly
     user.salt = undefined;
     user.hashed_password = undefined;
     res.json({
