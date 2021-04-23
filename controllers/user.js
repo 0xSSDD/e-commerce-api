@@ -4,28 +4,11 @@ const User = require('../models/user');
 const { errorHandler } = require("../helpers/dbErrorHandler");
 
 
-exports.signup = ( (req, res) => {
-  console.log('req body', req.body);
-  const user = new User(req.body);
-
-  user.save( (err, user)=> {
-    if(err) {
-      return res.status(400).json({
-        error: errorHandler(err)
-      });
-    }
-
-    // since we dont need to show this
-    user.salt = undefined;
-    user.hashed_password = undefined;
-    res.json({
-      user
-    });
-
-  });
-
+exports.requireSignin = expressJwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ["HS256"], 
+  userProperty: "auth",
 });
-
 
 exports.signin = ( (req, res) => {
   // find the user based on email
@@ -59,9 +42,30 @@ exports.signin = ( (req, res) => {
 
 });
 
-
 exports.signout =( (req, res) => {
   // for signout all we have to do is clear cookie
   res.clearCookie('t');
   res.json({message: "Signed out user"});
+});
+
+exports.signup = ( (req, res) => {
+  console.log('req body', req.body);
+  const user = new User(req.body);
+
+  user.save( (err, user)=> {
+    if(err) {
+      return res.status(400).json({
+        error: errorHandler(err)
+      });
+    }
+
+    // since we dont need to show this
+    user.salt = undefined;
+    user.hashed_password = undefined;
+    res.json({
+      user
+    });
+
+  });
+
 });
