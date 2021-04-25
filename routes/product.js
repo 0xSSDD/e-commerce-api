@@ -9,7 +9,8 @@ const {
   update, 
   list,
   listRelated,
-  listCategories 
+  listCategories,
+  listBySearch 
 } = require('../controllers/product');
 
 const { requireSignin, isAuth, isAdmin } = require('../controllers/auth');
@@ -26,6 +27,9 @@ router.post('/product/create/:userId',
  isAdmin, 
  create
 );
+
+router.post("/products/by/search", listBySearch);
+
 router.delete('/product/:productId/:userId',
   requireSignin, 
   isAuth, 
