@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { 
   create, 
+  photo,
   productById, 
   read, 
   remove, 
@@ -43,6 +44,8 @@ isAuth,
 isAdmin, 
 update
 );  
+
+router.get('/product/photo/:productId', photo);
 
 router.param("userId", userById);
 router.param("productId", productById);
