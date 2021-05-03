@@ -36,6 +36,7 @@ exports.create = (req, res) => {
         const {
             name,
             description,
+            originalPrice,
             price,
             category,
             quantity,
@@ -45,6 +46,7 @@ exports.create = (req, res) => {
         if (
             !name ||
             !description ||
+            !originalPrice ||
             !price ||
             !category ||
             !quantity ||
@@ -109,6 +111,7 @@ exports.update = (req, res) => {
         const {
             name,
             description,
+            originalPrice,
             price,
             category,
             quantity,
@@ -118,6 +121,7 @@ exports.update = (req, res) => {
         if (
             !name ||
             !description ||
+            !originalPrice ||
             !price ||
             !category ||
             !quantity ||
