@@ -45,3 +45,7 @@ exports.errorHandler = error => {
 
     return message;
 };
+
+
+
+// To start mongodb - linux - sudo systemctl start mongod
